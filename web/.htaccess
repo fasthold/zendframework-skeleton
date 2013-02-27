@@ -1,0 +1,18 @@
+SetEnv APPLICATION_ENV development
+
+php_flag magic_quotes_gpc off
+php_flag register_globals off
+#php_flag post_max_size 50M
+
+AddType video/ogg .ogv
+AddType video/mp4 .mp4
+AddType video/webm .webm
+AddType video/flv .flv
+
+RewriteEngine On
+#RewriteCond %{REQUEST_FILENAME} -s [OR]
+#RewriteCond %{REQUEST_FILENAME} -l [OR]
+#RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteRule ^.*$ - [NC,L]
+RewriteRule ^.*$ index.php [NC,L]

@@ -1,0 +1,13 @@
+<?php
+
+/*
+ * JSON 输出
+ */
+$success = intval( !!$this->success );
+$response = array(
+	'stat' => $success,
+	'errno' => $success ? 0 : $this->errno,
+	'errmsg' =>  null === $this->errmsg ? '' : $this->errmsg,
+);
+
+echo json_encode($response);
