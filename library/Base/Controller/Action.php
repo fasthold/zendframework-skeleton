@@ -8,7 +8,7 @@
  * Controller 基类
  *
  */
-class Dipub_Controller_Action extends Base_Controller_Action {
+class Base_Controller_Action extends Zend_Controller_Action {
 
 	/**
 	 * 包含若干 Zend_Session 的数组
