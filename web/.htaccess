@@ -14,5 +14,4 @@ RewriteEngine On
 #RewriteCond %{REQUEST_FILENAME} -l [OR]
 #RewriteCond %{REQUEST_FILENAME} -d
 RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]

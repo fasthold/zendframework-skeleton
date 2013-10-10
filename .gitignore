@@ -1,5 +1,8 @@
+.idea
+composer.lock
+vendor
 application/configs/application.ini
 library/Zend
-application/data/cache/*
-application/data/sessions/*
-application/data/temp/*
+runtime/caches/*
+runtime/sessions/*
+runtime/tmp/*

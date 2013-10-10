@@ -17,7 +17,11 @@ class Base_Controller_Action extends Zend_Controller_Action {
 	 */
 	protected $_session;
 
-	protected $_options = null;
+    /**
+     * 配置项
+     * @var array
+     */
+    protected $_options = null;
 
 	/**
 	 *
@@ -25,11 +29,19 @@ class Base_Controller_Action extends Zend_Controller_Action {
 	 */
 	protected $_flashMessenger;
 
-	protected function noRender() {
+    /**
+     * 禁用 view
+     */
+    protected function noRender()
+    {
 		$this->_helper->viewRenderer->setNoRender();
 	}
 
-	protected function noLayout() {
+    /**
+     * 禁用 layout
+     */
+    protected function noLayout()
+    {
 		$this->_helper->layout->disableLayout();
 	}
 
@@ -37,7 +49,8 @@ class Base_Controller_Action extends Zend_Controller_Action {
 	 * 设置布局
 	 * @param string $layout
 	 */
-	protected function setLayout($layout) {
+	protected function setLayout($layout)
+    {
 		$this->_helper->layout->setLayout($layout);
 		return $this;
 	}
@@ -45,9 +58,11 @@ class Base_Controller_Action extends Zend_Controller_Action {
 	/**
 	 * 关闭调试信息
 	 */
-	protected function noDebug() {
+	protected function noDebug()
+    {
 		Zend_Registry::set('DEBUG',-1);
 	}
+
 	/**
 	 * 开启调试信息
 	 */
@@ -55,13 +70,13 @@ class Base_Controller_Action extends Zend_Controller_Action {
 		Zend_Registry::set('DEBUG',$level);
 	}
 
-
 	/**
 	 * 从配置文件中取出所有配置选项
 	 *
 	 * @return Array
 	 */
-	public function getAppOptions() {
+	public function getAppOptions()
+    {
 		$args = $this->getInvokeArgs();
 		$this->_options = $args['bootstrap']->getOptions();
 		return $this->_options;
@@ -73,7 +88,8 @@ class Base_Controller_Action extends Zend_Controller_Action {
 	 * @param string $key
 	 * @return Mix
 	 */
-	public function getAppOption($key) {
+	public function getAppOption($key)
+    {
 		if(null === $this->_options) {
 			$this->getAppOptions();
 		}

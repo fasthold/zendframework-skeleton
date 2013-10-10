@@ -1,70 +1,59 @@
 <?php
 
 /**
- * $Id$
+ * Application index.php
  */
 $start = microtime(true);
+
+// Define path to root
+defined('PATH_ROOT')
+    || define('PATH_ROOT', realpath(__DIR__ . '/../'));
+
 // Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+defined('PATH_APP')
+    || define('PATH_APP', PATH_ROOT . '/application');
+
+// Define path to runtime file storage directory
+defined('PATH_RUNTIME')
+    || define('PATH_RUNTIME', PATH_ROOT . '/runtime');
 
 // Define application environment
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
 // Application configuration file
-defined('APPLICATION_CONFIG_FILE')
-    || define('APPLICATION_CONFIG_FILE', APPLICATION_PATH . '/configs/framework.ini');
+defined('FRAMEWORK_CONFIG_FILE')
+    || define('FRAMEWORK_CONFIG_FILE', PATH_APP . '/configs/framework.php');
 
 // Custom configuration file
 defined('CUSTOM_CONFIG_FILE')
-    || define('CUSTOM_CONFIG_FILE', APPLICATION_PATH . '/configs/application.ini');
+    || define('CUSTOM_CONFIG_FILE', PATH_APP . '/configs/application.php');
 
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library'),
+    realpath(PATH_APP . '/../library'),
 )));
 
-require_once APPLICATION_PATH . '/const.php';
+//require_once PATH_APP . '/const.php';
+require_once PATH_ROOT . '/vendor/autoload.php';
 
 // Check if the Zend Framework library installed.
-if(!file_exists(APPLICATION_PATH.'/../library/Zend/Application.php')) {
-	die("Please download ZendFramework 1.x first, and then put 'Zend' directory into 'library/' .");
+if(!class_exists('Zend_Application')) {
+	die("Please install vendors first.");
 }
-
-// Check if the configration file exists.
-if(!file_exists(APPLICATION_CONFIG_FILE)) {
-	die("Please rename 'application/configs/application.ini-new' to 'application.ini' .");
-}
-
-require_once 'Zend/Loader/Autoloader.php';
-Zend_Loader_Autoloader::getInstance();
 
 // Read the configuration
-$applicationConfig = new Zend_Config_Ini(APPLICATION_CONFIG_FILE, APPLICATION_ENV);
-$applicationConfig = $applicationConfig->toArray();
+$applicationConfig = include_once PATH_APP . '/configs/framework.php';
+
 if(empty($applicationConfig)) {
 	die("It seems that the framework configs meet some problem.");
 }
 
-// If a custom config file exists, load it and override the default configuration
-$customConfig = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini');
-$customConfig = $customConfig->toArray();
-
-// Combine database configuration
-$applicationConfig['resources']['db']['params'] = $customConfig['db']['params'] + $applicationConfig['resources']['db']['params'];
-
-// Create application, bootstrap, and run
-$application = new Zend_Application(
-    APPLICATION_ENV, 
-    $applicationConfig
-);
-
-try {
-	$application->bootstrap()
-		->run();
-} catch (Exception $e) {
-	echo '<h3>'.$e->getMessage().'</h3>';
-	echo "<pre>";
-	echo $e->__toString();
-	echo "</pre>";
+// If a custom config file exists, load it and override the default configurations.
+if(file_exists(CUSTOM_CONFIG_FILE)) {
+    $customConfig = include_once PATH_APP . '/configs/application.php';
+    // Combine database configuration
+    $applicationConfig['resources']['db']['params'] = $customConfig['db']['params'] + $applicationConfig['resources']['db']['params'];
 }
+
+$app = new Base\Application();
+$app->run();
