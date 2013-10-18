@@ -29,7 +29,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Controller_Front::getInstance()->throwExceptions(true);
         $run     = new Whoops\Run;
         $handler = new Whoops\Handler\PrettyPageHandler;
-        $handler->setPageTitle("We're all going to be fired!");
+        $handler->setPageTitle("Oops! An Error Occurred");
         $run->pushHandler($handler);
         $run->register();
 
@@ -77,7 +77,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 	/**
 	 * Initialize view
-	 * 
+	 *
 	 * @return Zend_View
 	 */
 	protected function _initView()
@@ -97,14 +97,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	 */
 	protected function _initSession()
     {
-		
+
 	}
-	
+
   	/**
 	 * init database
 	 *
 	 * @return Zend_Db_Adapter_Pdo_Mysql
-	 */	
+	 */
 	protected function _initDB()
     {
         $resources = $this->getPluginResource('db');

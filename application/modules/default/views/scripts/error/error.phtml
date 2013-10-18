@@ -1,0 +1,54 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en" "http://www.w3c.org/tr/1999/rec-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv=content-type content="text/html; charset=utf-8">
+<head>
+    <title>An error occurred.</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Avenir", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
+            font-size: 14px;
+        }
+        pre {
+            font-size: 12px;
+        }
+        body {
+            background-image: url(data:image/gif;base64,R0lGODlhEAAQAIAAAP///+jo6CH5BAAAAAAALAAAAAAQABAAAAIdhI+puxHq4EuR2dukphN1DFqV9xnjcYaqt5EtWgAAOw==);
+        }
+        .container {
+            margin: auto;
+            margin-top: 100px;
+            padding: auto;
+            width: 563px;
+            height: 195px;
+            background-image: url('data:image/gif;base64,R0lGODlhMwLDAJECAN3d3WVlZf///wAAACH5BAEAAAIALAAAAAAzAsMAAAL/jI+pC+0Po5y02ouz3rz7D4biSJbmiaaqtbRuIsTyTNf2jef6zvf+DwwKh8Si8YhMKpfMpvMJNUCn1Kr1is1qt9yu93uTgsfksvmMTqvXXjH7DY/L5/S6Pee+6/f8vv8PGJMXSFhoeIiYGDSo2Oj4CBmpxihZaXmJmbkYoNnp+QkaSRlKWmp6mjaKusra6rqk+io7S1sryGmbq7t7Gsv7Cxxs6CtcbHwcR4y8zNzMpewcLT2dBE19jZ2NY63d7T3N/S0+XhxOfo5ea57O3t6L6x4vL7s+b3/vWI+/zw+o3w8wIJ0AAAQaPEioAcKFDO8obAgx4pqHEita/ELxosaN/1UycvwIMonHkCRL/hhpMqXKGihXukzZ8qVMkDFn2rxY86ZOiDl3+jzY86fQfkGHGrVX9KjSdkmXOiXX9KnUblGnWqVW9arWZlm3ejXW9avYX2HHmrVV9qzaV2nXukXV9q3cUHHn2tVU967eSnn3+nXU96/gQ4EHGwZU+LDiPYkXO6bT+LHkN5EnW0ZT+bLmMZk3e+bS+bPoK6FHm4ZS+rTqJalXuzbS+rXsILFn2+ZR+7buG7l3+5bR+7fv4MJ1Ey9u+zhy2cqXu27uXDX06KanUxdt/brn7No1c+9u+Tt4yeLHOy5vXjH69IbXsxfs/r3f+PL10q9v9z5+ufr3u//t759aAAZo1oAEimXggV4lqKBWDDZo1YMQSiXhhE5VaKFSGGZo1IYcCuXhhz6FKKJOJJZo04koyqTiii616KJKMMZo0ow0kmTjjTQVpKNwOfa40Y9A4sTjkMYVaWRySCbJ3JJMPufkk9JFKWV1VFaJ3ZVYbqfllt516WV4YIZJ3phknmfmmeqlqWZ7bLYJ35twzifnnPbVaWd+eObJ3558/ufnnwIGKmiBhBaK4KGILqjoog426miEkEZK4aSUXmjppRpmqmmHnHYK4qegjijqqCaWamqKqKbK4qqsvujqqzLGKmuNtNaK46247rgroL2uJeSvzgQrLDPEFovMsciUgqXrshIp62ww0EZLVrPUMjTttbpkqy1a8HT71D/gpiTuuCWVa25I6Kb70brsbuTuuxfFK29F9NYb0b34NqTvvgv16+9BAAcs0MAEA2TwwfwkrDA+DDdsz8MQyyPxxO5UbDE7GGeMzsYck+Pxx+KELLI3JJeszckoY/NCyy2sAHPMMs9Mc80234xzzjrvjIHLPh9QAAA7');
+            background-repeat: no-repeat;
+            text-align: center;
+            padding-top: 70px;
+        }
+        .container h1.title {margin: 10px;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="title">Oops! An Error Occurred.</h1>
+    <p>Error message: <i><?php echo $this->exception->getMessage() ?>.</i></p>
+    <p>Click <a href="#">here</a> to report this issue to us.</p>
+</div>
+</body></html>
+
+<?php if ('development' == APPLICATION_ENV): ?>
+
+    <!-- <h2><?php echo $this->message ?></h2> -->
+
+
+    <div style="background-color:cornsilk;">
+        <h3><?php echo $this->exception->getMessage() ?></h3>
+        <pre><?php echo $this->exception->getTraceAsString() ?></pre>
+
+        <h3>Request Parameters:</h3>
+        <pre><?php var_dump($this->request->getParams()) ?></pre>
+    </div>
+
+<?php endif ?>

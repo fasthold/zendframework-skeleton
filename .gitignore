@@ -1,8 +1,14 @@
 .idea
 composer.lock
 vendor
-application/configs/application.ini
+application/configs/application.php
 library/Zend
 runtime/caches/*
-runtime/sessions/*
 runtime/tmp/*
+
+# need to backup `sessions` folder
+runtime/sessions/*
+
+# need to backup `logs` folder
+logs/error/*
+!logs/error/.gitkeep
