@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * ********** WARNING **********
+ * ***** 请勿将此文件加入 VCS ****
+ * ********** WARNING **********
+ *
+ * 项目自身的配置。
+ * framework.php 中的任何一项配置，均可以被此文件所覆盖使用。若此文件未设置，则以 framework.php 中的为准。
+ *
+ * @return array
+ */
+return array(
+    'db' => array(
+        'params' => array(
+            'host' => 'localhost', // 数据库主机地址
+            'username' => 'root', // 数据库连接用户名
+            'password' => '', // 数据库连接密码
+            'dbname' => 'dbname', // 数据库名称
+            'adapter' => 'PDO_MYSQL',// 默认为 MySQL 数据库
+        ),
+    ),
+    'blowfish_secret' => '',
+);
