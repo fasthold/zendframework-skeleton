@@ -33,7 +33,10 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(PATH_APP . '/../library'),
 )));
 
-//require_once PATH_APP . '/const.php';
+if(!is_readable(PATH_ROOT . '/vendor/autoload.php')) {
+    die('Please install <a href="//getcomposer.org" target="_blank">Composer</a> and vendors first.');
+}
+
 require_once PATH_ROOT . '/vendor/autoload.php';
 
 // Check if the Zend Framework library installed.
