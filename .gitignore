@@ -1,14 +1,15 @@
-.idea
 composer.lock
+composer.phar
 vendor
 application/configs/application.php
-library/Zend
-runtime/caches/*
-runtime/tmp/*
 
 # need to backup `sessions` folder
-runtime/sessions/*
+runtime/*
+!runtime/.gitkeep
 
-# need to backup `logs` folder
-logs/error/*
-!logs/error/.gitkeep
+ugc/*
+!ugc/.gitkeep
+
+# The other third app's folders.
+.idea
+.btsync
