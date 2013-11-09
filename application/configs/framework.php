@@ -5,83 +5,61 @@
  */
 return
 array (
-    'error_handler' => 'php', // available options: php, filp/whoops, zend, or a class name of yours
     'version' => '1.0.0', // Application version
+    'environment' => 'development', // Runtime Environment. Could be development, production, testing
+    'error_handler' => 'php', // available options: php, filp/whoops, zend, or a class name of yours
     'phpSettings' => array (
         'display_startup_errors' => '1',
         'display_errors' => '1',
         'error_reporting' => -1,
         'log_errors' => 1,
         'error_log' => PATH_ROOT . '/logs/error/php.log', // PHP 错误日志文件
-        'date' => array (
-            'timezone' => 'Asia/Shanghai',
+        'date.timezone' => 'Asia/Shanghai',
+    ),
+    'database' => array (
+        'adapter' => 'PDO_MYSQL',
+        'isDefaultTableAdapter' => '1',
+        'params' => array (
+            'host' => 'localhost',
+            'port' => '3306',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
         ),
     ),
-    'bootstrap' => array (
-        'path' => PATH_APP . '/Bootstrap.php',
-        'class' => 'Bootstrap',
-    ),
-    'resources' =>  array (
-        'frontController' => array (
-            'controllerDirectory' => PATH_APP . '/controllers',
-            'defaultControllerName' => 'index',
-            'defaultAction' => 'index',
-        ),
-        'view' => array (
-            'encoding' => 'UTF-8',
-            'basePath' => PATH_APP . '/views',
-        ),
-        'layout' => array (
-            'layout' => 'xhtml',
-            'layoutPath' => PATH_APP . '/views/layouts',
-        ),
-        'db' => array (
-            'adapter' => 'PDO_MYSQL',
-            'isDefaultTableAdapter' => '1',
-            'params' => array (
-                'port' => '3306',
-                'charset' => 'utf8',
+    'cachemanager' => array (
+        'frontend' => array (
+            'name' => 'Core',
+            'options' => array (
+                'lifetime' => '7200',
+                'automatic_serialization' => '1',
             ),
         ),
-        'cachemanager' => array (
-            'database' => array (
-                'frontend' => array (
-                    'name' => 'Core',
-                    'options' => array (
-                        'lifetime' => '7200',
-                        'automatic_serialization' => '1',
-                    ),
-                ),
-                'backend' => array (
-                    'name' => 'File',
-                    'options' => array (
-                        'cache_dir' => PATH_RUNTIME . '/caches',
-                    ),
-                ),
+        'backend' => array (
+            'name' => 'File',
+            'options' => array (
+                'cache_dir' => PATH_RUNTIME . '/caches',
             ),
         ),
     ),
     'session' => array (
-        'storage' => 'file',
+        // 'storage' => 'file',
         'name' => 'passport_session_id',
-        'use_only_cookies' => '1',
-        'strict' => '1',
-        'cookie_httponly' => '1',
-        'remember_me_seconds' => '86400',
-        'lifetime' => '86400',
-        'modifiedColumn' => 'modified',
-        'dataColumn' => 'data',
-        'lifetimeColumn' => 'lifetime',
-        'file' => array (
-            'save_path' => PATH_RUNTIME . '/sessions',
-        ),
-        'database' => array (
-            'db' => 'db',
-            'name' => 'session',
-            'primary' => 'id',
-            'modifiedColumn' => 'modified',
-            'dataColumn' => 'data',
-            'lifetimeColumn' => 'lifetime',
+        'use_only_cookies' => 1,
+        'strict' => 1,
+        'cookie_httponly' => 1,
+        'use_only_cookies' => 'on',
+        'strict' => 'on',
+        'remember_me_seconds' => 86400,
+        'cookie_lifetime' => 86400,
+        'save_path' => PATH_RUNTIME . '/sessions',
+        'save_handler' => 'Base_Session_SaveHandler_MongoDb',
+        'save_handler_options' => array(
+            'mongodb' => array(
+                'connectionString' => 'mongodb://localhost',
+                'db' => 'wow',
+                'collection' => 'sessions',
+            )
         ),
     ),
     'ugc_storage' => array(
