@@ -153,12 +153,8 @@ class Application
     public function connectDatabase($server = 'default')
     {
         $params = $this->_config['database']['params'];
-        try {
-            /** @see http://cn2.php.net/manual/en/mongoclient.construct.php */
-            $connection = new \MongoClient($params['connection_string'], array('connect' => false));
-            \Mawelous\Yamop\Mapper::setDatabase( $connection->{$params['dbname']} );
-        } catch (Exception $e) {
-            d($e->getCode());
-        }
+        /** @see http://cn2.php.net/manual/en/mongoclient.construct.php */
+        $connection = new \MongoClient($params['connection_string'], array('connect' => false));
+        \Mawelous\Yamop\Mapper::setDatabase($connection->{$params['dbname']});
     }
 }
