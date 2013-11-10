@@ -17,7 +17,7 @@
 
 ### 1. Code Organization:
 
-For large projects, code is organized by modules. The modules directory is located at `application/modules`, there is a default module called 'default', you could start to developing your project from there.
+For large projects, code is organized by modules. The modules directory is located at `application/modules`, there is a default module called 'site', you could start from there to develop.
 
 ### 2. Routes:
 
