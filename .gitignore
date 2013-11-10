@@ -7,8 +7,13 @@ application/configs/application.php
 runtime/*
 !runtime/.gitkeep
 
+logs/*
+!logs/error/.gitkeep
+
 ugc/*
 !ugc/.gitkeep
+
+tests/reports/*
 
 # The other third app's folders.
 .idea
