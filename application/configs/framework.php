@@ -7,8 +7,8 @@ return
 array (
     'version' => '1.0.0', // Application version
     'environment' => 'development', // Runtime Environment. Could be development, production, testing
-    'error_handler' => 'php', // available options: php, filp/whoops, zend, or a class name of yours
-    'phpSettings' => array (
+    'error_handler' => 'php', // available options: php, zend, whoops or a callable class method name of yours
+    'php_settings' => array (
         'display_startup_errors' => '1',
         'display_errors' => '1',
         'error_reporting' => -1,
@@ -17,7 +17,7 @@ array (
         'date.timezone' => 'Asia/Shanghai',
     ),
     'database' => array (
-        'adapter' => 'PDO_MYSQL',
+        'adapter' => 'PDO_MYSQL', // 默认为 MongoDB
         'isDefaultTableAdapter' => '1',
         'params' => array (
             'host' => 'localhost',

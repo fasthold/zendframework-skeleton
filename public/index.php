@@ -37,7 +37,8 @@ if(!is_readable(PATH_ROOT . '/vendor/autoload.php')) {
     die('Please install <a href="//getcomposer.org" target="_blank">Composer</a> and vendors first.');
 }
 
-require_once PATH_ROOT . '/vendor/autoload.php';
+$autoloader = include_once PATH_ROOT . '/vendor/autoload.php';
+$autoloader->add('', __DIR__.'/../application/modules', $prepend = false);
 
 // Check if the Zend Framework library installed.
 if(!class_exists('Zend_Application')) {
@@ -48,15 +49,14 @@ if(!class_exists('Zend_Application')) {
 $applicationConfig = include_once PATH_APP . '/configs/framework.php';
 
 if(empty($applicationConfig)) {
-	die("It seems that the framework configs meet some problem.");
+	die("It seems that the framework configurations meet some problem.");
 }
 
 // If a custom config file exists, load it and override the default configurations.
 if(file_exists(CUSTOM_CONFIG_FILE)) {
     $customConfig = include_once PATH_APP . '/configs/application.php';
-    // Combine database configuration
-    $applicationConfig['resources']['db']['params'] = $customConfig['db']['params'] + $applicationConfig['resources']['db']['params'];
+    $applicationConfig = array_merge($applicationConfig, $customConfig);
 }
 
-$app = new Base\Application();
+$app = new Base\Application($applicationConfig);
 $app->run();

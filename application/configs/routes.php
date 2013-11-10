@@ -10,5 +10,5 @@
 use Zend_Controller_Router_Route as Route;
 
 return array(
-    'index' => new Route('/', array('module' => 'default','controller' => 'index', 'action' => 'index')),
+    'index' => new Route('/', array('module' => 'site','controller' => 'index', 'action' => 'index')),
 );
