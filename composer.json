@@ -26,5 +26,8 @@
             "": "library/"
         },
         "files": ["library/debug.php", "application/const.php"]
+    },
+    "config": {
+        "process-timeout": 600,
     }
 }
