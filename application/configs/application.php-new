@@ -16,7 +16,7 @@ return array(
         'adapter' => 'PDO_MYSQL',
         'params' => array( //该数据库类型所对应的参数. MongoDB 参见： https://gist.github.com/....
             'host' => 'localhost', // 数据库主机地址
-            'port' => 3306
+            'port' => 3306,
             'username' => 'root', // 数据库连接用户名
             'password' => '', // 数据库连接密码
             'dbname' => 'your-database', // 数据库名称

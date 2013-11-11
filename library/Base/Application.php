@@ -152,9 +152,21 @@ class Application
      */
     public function connectDatabase($server = 'default')
     {
+        $adapter = strtoupper($this->_config['database']['adapter']);
         $params = $this->_config['database']['params'];
-        /** @see http://cn2.php.net/manual/en/mongoclient.construct.php */
-        $connection = new \MongoClient($params['connection_string'], array('connect' => false));
-        \Mawelous\Yamop\Mapper::setDatabase($connection->{$params['dbname']});
+        if(empty($adapter)) {
+            throw new \Exception("Please specify a database adapter in your config file", 500);
+        }
+        switch ($adapter) {
+            case 'MONGODB':
+                /** @see http://cn2.php.net/manual/en/mongoclient.construct.php */
+                $connection = new \MongoClient($params['connection_string'], array('connect' => false));
+                \Mawelous\Yamop\Mapper::setDatabase($connection->{$params['dbname']});
+                break;
+            case 'PDO_MYSQL':
+            default:
+                // connect to mysql here...
+                break;
+        }
     }
 }
