@@ -29,16 +29,12 @@ defined('FRAMEWORK_CONFIG_FILE')
 defined('CUSTOM_CONFIG_FILE')
     || define('CUSTOM_CONFIG_FILE', PATH_APP . '/configs/application.php');
 
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(PATH_APP . '/../library'),
-)));
-
 if(!is_readable(PATH_ROOT . '/vendor/autoload.php')) {
     die('Please install <a href="//getcomposer.org" target="_blank">Composer</a> and vendors first.');
 }
 
-$autoloader = include_once PATH_ROOT . '/vendor/autoload.php';
-$autoloader->add('', __DIR__.'/../application/modules', $prepend = false);
+$autoloader = include PATH_ROOT . '/vendor/autoload.php';
+$autoloader->add('', __DIR__.'/../application/modules', false);
 
 // Check if the Zend Framework library installed.
 if(!class_exists('Zend_Application')) {
