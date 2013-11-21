@@ -20,12 +20,6 @@
 
         <whitelist>
             <directory>./application</directory>
-            <!--<exclude>
-                <directory>../src/*/*Bundle/Resources</directory>
-                <directory>../src/*/*Bundle/Tests</directory>
-                <directory>../src/Acme/Bundle/*Bundle/Resources</directory>
-                <directory>../src/Acme/Bundle/*Bundle/Tests</directory>
-            </exclude>-->
         </whitelist>
     </filter>
     <logging>
