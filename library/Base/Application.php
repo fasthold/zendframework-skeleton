@@ -41,7 +41,6 @@ class Application
     public function run()
     {
         $this->initPhpSettings();
-        $this->_front->throwExceptions(true); // 设为 false 表示使用 zend framework 的 error handler
         $this->initErrorHandler();
         $this->initRoutes();
         $this->initView();
@@ -77,7 +76,7 @@ class Application
         }
         switch ($errorHandler) {
             case 'zend':
-                $this->_front->throwExceptions(false);
+                $this->_front->throwExceptions(false); // 设为 false 表示使用 zend framework 的 error handler
                 break;
             case 'whoops':
                 // 只有在非 production 环境下，才允许使用 whoops
@@ -90,6 +89,7 @@ class Application
                 break;
             case 'php':
             default:
+                $this->_front->throwExceptions(true);
                 break;
         }
     }
@@ -107,7 +107,7 @@ class Application
         $router = $this->_front->getRouter();
         $router->removeDefaultRoutes();
 
-        $routes = include_once PATH_APP . '/configs/routes.php';
+        $routes = include PATH_APP . '/configs/routes.php';
         foreach($routes as $routeName => $route) {
             $router->addRoute($routeName, $route);
         }
