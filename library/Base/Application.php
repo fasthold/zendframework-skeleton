@@ -160,7 +160,7 @@ class Application
         switch ($adapter) {
             case 'MONGODB':
                 /** @see http://cn2.php.net/manual/en/mongoclient.construct.php */
-                $connection = new \MongoClient($params['connection_string'], array('connect' => false));
+                $connection = new \MongoClient($params['connection_string'], $params['options']);
                 \Mawelous\Yamop\Mapper::setDatabase($connection->{$params['dbname']});
                 break;
             case 'PDO_MYSQL':
