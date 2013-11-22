@@ -32,7 +32,10 @@ class ErrorController extends Zend_Controller_Action
         }
 
         $clientIp = $this->getRequest()->getClientIp();
-        if(APPLICATION_ENV != 'development' && $clientIp != '127.0.0.1') {
+        if(APPLICATION_ENV == 'test' && php_sapi_name() == "cli") {
+            // 单元测试环境下
+            throw $errors->exception;
+        } elseif(APPLICATION_ENV != 'development' && $clientIp != '127.0.0.1') {
             echo $this->view->render('error/http-500.phtml');
             exit();
         }
