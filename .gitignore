@@ -1,5 +1,20 @@
-application/configs/application.ini
-library/Zend
-application/data/cache/*
-application/data/sessions/*
-application/data/temp/*
+composer.lock
+composer.phar
+vendor
+application/configs/application.php
+
+# need to backup `sessions` folder
+runtime/*
+!runtime/.gitkeep
+
+logs/*
+!logs/error/.gitkeep
+
+ugc/*
+!ugc/.gitkeep
+
+tests/reports/*
+
+# The other third app's folders.
+.idea
+.btsync

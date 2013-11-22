@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * ********** WARNING ***********************************************************
+ *  安装时，请将此文件复制为 application.php, 并且不能将 application.php 加入到 VCS 中
+ * ********** WARNING ***********************************************************
+ *
+ * 项目自身的配置。
+ * framework.php 中的任何一项配置，均可以被此文件所覆盖使用。若此文件未设置，则以 framework.php 中的为准。
+ *
+ * @return array
+ */
+return array(
+    'environment' => 'development',
+    'database' => array(
+        'adapter' => 'PDO_MYSQL',
+        'params' => array( //该数据库类型所对应的参数. MongoDB 参见： https://gist.github.com/....
+            'host' => 'localhost', // 数据库主机地址
+            'port' => 3306,
+            'username' => 'root', // 数据库连接用户名
+            'password' => '', // 数据库连接密码
+            'dbname' => 'your-database', // 数据库名称
+        ),
+    ),
+    'blowfish_secret' => 'PLEASE-CHANGE-THIS',
+);

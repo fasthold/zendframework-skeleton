@@ -5,10 +5,14 @@
  *
  * @param mixed $var
  * @param string $label
- * @param bool $dump
+ * @param boolean $dump
+ * @param boolean $showCallAt 是否显示调试调用位置
+ *
+ * @return void
  */
-function debug($var,$label=null,$dump=false) {
+function debug($var,$label = null, $dump = false, $showCallAt = true) {
 	if(is_null($var) || !isset($var) || is_bool($var)) {$dump = true;}
+	if(is_string($var) && trim($var) == '') {$dump = true;}
 	echo "<pre>$label\n";
 	if($dump) {
 		if(function_exists('xdebug_var_dump')) {
@@ -21,25 +25,51 @@ function debug($var,$label=null,$dump=false) {
 	} else {
 		print_r($var);
 	}
+	// 对象，则输出拥有的 methods
+	if(is_object($var)) {
+		echo "\n ___________________________ Methods: _________________________________\n";
+		$methods = get_class_methods($var);
+		foreach ($methods as $method) {
+			echo "\n $method";
+		}
+        echo "\n ___________________________ Properties: _________________________________\n";
+        $objectVars = get_object_vars($var);
+        print_r(array_keys($objectVars));
+	}
 	echo "\n</pre>\n";
-	return ;
+
+	if($showCallAt) {
+        $idx = 5;
+        $bt = debug_backtrace();
+
+        // Check if thie function was called from the helpers shortcuts
+        $caller = isset($bt[$idx]['function']) ? $bt[$idx]['function'] : '';
+        if (!in_array($caller, array('debug', 'd'))) {
+            $idx -= 2;
+            $caller = isset($bt[$idx]['function']) ? $bt[$idx]['function'] : '';
+            if (!in_array($caller, array('debug', 'd'))) {
+                $idx = $idx - 2;
+            }
+        }
+
+        $callFile = isset($bt[$idx]['file']) ? $bt[$idx]['file'] : null;
+        $callLine = isset($bt[$idx]['line']) ? $bt[$idx]['line'] : null;
+        echo "\n <i class='debug_trace'>DEBUG@ $callFile : #$callLine </i>";
+    }
 }
 
 /**
- * debug() something, but exit() when finished.
+ * debug() something, but exit() when finish.
  *
- * @param mixed $var
+ * @param Mixed $var
  * @param string $label
- * @param bool $dump
+ * @param boolean $dump
  */
 function d($var,$label=null,$dump=false) {
 	debug($var,$label,$dump);
 	die();
 }
 
-/**
- * 当使用MySQL数据库时，输出调试信息
- */
 function dbProfiler() {
 	if(Zend_Registry::isRegistered('Profiler')) {
 		$profiler = Zend_Registry::get('Profiler');

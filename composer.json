@@ -1,0 +1,33 @@
+{
+    "require": {
+        "zendframework/zendframework1": "1.12.*@dev",
+        "monolog/monolog": "1.6.*@dev",
+        "kriswallsmith/assetic": "1.2.*@dev",
+        "leafo/lessphp": "*",
+        "mawelous/yamop": "dev-master",
+        "ezyang/htmlpurifier": "dev-master"
+    },
+
+    "require-dev": {
+        "raulfraile/ladybug": "~1.0",
+        "filp/whoops": "1.*",
+        "phpunit/phpunit": "3.7.*@dev"
+    },
+
+    "name": "fasthold/zendframework-skeleton",
+    "description": "A Zend Framework v1 skeleton for rapidly build a project",
+    "license": "proprietary",
+
+    "minimum-stability": "stable",
+
+    "autoload": {
+        "psr-0": {
+            "": "application/modules/",
+            "": "library/"
+        },
+        "files": ["library/debug.php", "application/const.php"]
+    },
+    "config": {
+        "process-timeout": 600
+    }
+}
