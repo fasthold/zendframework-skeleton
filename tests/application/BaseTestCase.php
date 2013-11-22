@@ -30,4 +30,19 @@ class BaseTestCase extends Zend_Test_PHPUnit_ControllerTestCase
             $router->addRoute($routeName, $route);
         }
     }
+
+    /**
+     * 返回响应中不包含任何php的错误
+     *
+     * @param  string $text response text
+     *
+     * @return void
+     */
+    public function assertNoSystemError($text)
+    {
+        $this->assertNotContains('Strict Standards:', $text);
+        $this->assertNotContains('Fatal Error:', $text);
+        $this->assertNotContains('Notice:', $text);
+        $this->assertNotContains('Deprecated:', $text);
+    }
 }
