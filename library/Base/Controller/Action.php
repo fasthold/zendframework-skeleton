@@ -38,6 +38,7 @@ class Action extends Zend_Controller_Action {
      */
     protected function noRender()
     {
+        $this->noLayout();
         $this->_helper->viewRenderer->setNoRender();
     }
 
@@ -51,7 +52,9 @@ class Action extends Zend_Controller_Action {
 
     /**
      * 设置布局
+     *
      * @param string $layout
+     * @return \Base\Controller\Action
      */
     protected function setLayout($layout)
     {
