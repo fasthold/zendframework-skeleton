@@ -12,7 +12,7 @@ use Zend_Layout;
 use Zend_Session as Session;
 use Whoops\Run as Whoops;
 use Whoops\Handler\PrettyPageHandler;
-use Base\Bootstrap;
+use Base\Controller\Response\Http as HttpResponse;
 
 
 /**
@@ -22,9 +22,15 @@ class Application
 {
 
     /**
-     * @var Zend_Controller_Front
+     * @var \Zend_Controller_Front
      */
     protected $_front;
+
+    /**
+     *
+     * @var \Base\Controller\Response\Http
+     */
+    protected $_response;
 
     protected $_config;
 
@@ -44,11 +50,12 @@ class Application
         $this->initErrorHandler();
         $this->initRoutes();
         $this->initView();
+        $this->initResponse();
         $this->connectDatabase();
         // $this->startSession();
 
-        $this->_front->dispatch();
-    }
+        $this->_front->dispatch(null, $this->_response);
+   }
 
     /**
      * PHP环境相关设定
@@ -125,6 +132,14 @@ class Application
         $layout->setLayout('html5');
         $layout->disableLayout();
         $paths = $layout->getLayoutPath();
+    }
+
+    /**
+     * 增加扩展 Response 对象
+     */
+    public function initResponse()
+    {
+        $this->_response = new HttpResponse;
     }
 
     /**
