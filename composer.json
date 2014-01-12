@@ -3,7 +3,6 @@
         "zendframework/zendframework1": "1.12.*@dev",
         "monolog/monolog": "1.6.*@dev",
         "kriswallsmith/assetic": "1.2.*@dev",
-        "leafo/lessphp": "*",
         "mawelous/yamop": "dev-master",
         "ezyang/htmlpurifier": "dev-master"
     },
