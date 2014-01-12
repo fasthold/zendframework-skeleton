@@ -13,6 +13,7 @@ use Zend_Session as Session;
 use Whoops\Run as Whoops;
 use Whoops\Handler\PrettyPageHandler;
 use Base\Controller\Response\Http as HttpResponse;
+use Base\Controller\Request\Http as HttpRequest;
 
 
 /**
@@ -25,6 +26,12 @@ class Application
      * @var \Zend_Controller_Front
      */
     protected $_front;
+
+    /**
+     *
+     * @var \Base\Controller\Request\Http
+     */
+    protected $_request;
 
     /**
      *
@@ -48,13 +55,14 @@ class Application
     {
         $this->initPhpSettings();
         $this->initErrorHandler();
-        $this->initRoutes();
         $this->initView();
+        $this->initRequest(); // 必须放在 initRoutes() 的前面
         $this->initResponse();
+        $this->initRoutes();
         $this->connectDatabase();
         // $this->startSession();
 
-        $this->_front->dispatch(null, $this->_response);
+        $this->_front->dispatch($this->_request, $this->_response);
    }
 
     /**
@@ -116,14 +124,18 @@ class Application
 
         $routes = include PATH_APP . '/configs/routes.php';
         foreach($routes as $routeName => $route) {
-            $router->addRoute($routeName, $route);
+            // 增加对 request method 的判定。如果 method 不符合，则该条 route 直接就不被加入到 router 里
+            $options = $route->getDefaults();
+            $method = isset($options['method']) ? strtoupper($options['method']) : 'GET';
+            if($method === $this->_request->getMethod()) {
+                $router->addRoute($routeName, $route);                
+            }
         }
     }
 
 
     /**
-     * [initView description]
-     * @return void
+     * 初始化 View
      */
     public function initView()
     {
@@ -132,6 +144,14 @@ class Application
         $layout->setLayout('html5');
         $layout->disableLayout();
         $paths = $layout->getLayoutPath();
+    }
+
+    /**
+     * 增加扩展 Request 对象
+     */
+    public function initRequest()
+    {
+        $this->_request = new HttpRequest;
     }
 
     /**
